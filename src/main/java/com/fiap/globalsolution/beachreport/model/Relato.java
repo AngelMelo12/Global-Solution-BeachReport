@@ -35,7 +35,7 @@ public class Relato {
     private String envolveAnimais;
 
     @Column(name = "id_usuario")
-    private Long id;
+    private Long idUsuario;
 
     @Column(name = "dt_hr_relato")
     private Date dataHoraRelato;
