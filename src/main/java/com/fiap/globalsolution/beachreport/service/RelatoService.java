@@ -1,8 +1,10 @@
 package com.fiap.globalsolution.beachreport.service;
 
 import com.fiap.globalsolution.beachreport.model.Usuario;
+import com.fiap.globalsolution.beachreport.model.dto.RelatoDTO;
 import com.fiap.globalsolution.beachreport.model.dto.UsuarioDTO;
 import com.fiap.globalsolution.beachreport.model.dto.UsuarioUpdateDTO;
+import com.fiap.globalsolution.beachreport.repository.RelatoRepository;
 import com.fiap.globalsolution.beachreport.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,29 +17,36 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UsuarioService {
-    private final UsuarioRepository usuarioRepository;
+public class RelatoService {
+    private final RelatoRepository relatoRepository;
 
-    public Page<Usuario> index(Pageable pageable) {
-        return usuarioRepository.findAll(pageable);
+    public Page<Relato> index(Pageable pageable) {
+        return relatoRepository.findAll(pageable);
     }
 
-    public Usuario create(UsuarioDTO usuarioRequest) {
+    public Relato create(RelatoDTO relatoRequest) {
 
-        var newUsuario = new Usuario();
-        newUsuario.setCpf(usuarioRequest.getCpf());
-        newUsuario.setSenha(usuarioRequest.getSenha());
+        var newRelato = new Relato();
+        newRelato.setId(relatoRequest.getId());
+        newRelato.setFoto(relatoRequest.getFoto());
+        newRelato.setRelato(relatoRequest.getRelato());
+        newRelato.setLatitude(relatoRequest.getLatitude());
+        newRelato.setLongitude(relatoRequest.getLongitude());
+        newRelato.setPraia_suja(relatoRequest.getPraia_suja());
+        newRelato.setEnvolve_animais(relatoRequest.getEnvolve_animais());
+        newRelato.setData_hr_relato(relatoRequest.getData_hr_relato());
+        newRelato.setNr_likes(relatoRequest.getNr_likes());
 
-        return usuarioRepository.save(newUsuario);
+        return relatoRepository.save(newRelato);
     }
 
-    public Optional<Usuario> get(Long id) {
-        return usuarioRepository.findById(id);
+    public Optional<Relato> get(Long id) {
+        return RelatoRepository.findById(id);
     }
 
     public void destroy(Long id) {
         verificarSeExisteUsuario(id);
-        usuarioRepository.deleteById(id);
+        relatoRepository.deleteById(id);
     }
 
     public Usuario update(Long id, UsuarioUpdateDTO usuarioRequest){
@@ -53,4 +62,6 @@ public class UsuarioService {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado" )
                 );
     }
+}
+
 }
