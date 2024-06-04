@@ -1,4 +1,4 @@
-# TargetCustomer
+# Beach Report
 
 Todos os endpoints estão disponíveis em uma coleção para teste via Postman. Utilizando o arquivo endpoints-postman.json localizado na pasta raíz do projeto.
 
