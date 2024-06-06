@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("relato")
 @CacheConfig(cacheNames = "relatos")
-@Tag(name = "relatos", description = "Endpoint relacionado aos dados de usuários")
+@Tag(name = "relatos", description = "Endpoint relacionado aos dados de relatos")
 @Slf4j
 public class RelatoController {
 
@@ -35,7 +35,7 @@ public class RelatoController {
 
     @GetMapping
     @Cacheable
-    @Operation(summary = "Lista todos os relatos", description = "Endpoint retorna de forma paginada todos as relatos, por padrão cada pagina contém 10 cadastros, porém estes dados são parametrizáveis.")
+    @Operation(summary = "Lista todos os relatos", description = "Endpoint retorna de forma paginada todos as relatos, por padrão cada pagina contém 10 relatos, porém estes dados são parametrizáveis.")
     public ResponseEntity<Page<RelatoResponseDTO>> index(@ParameterObject @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(relatoService.index(pageable));
     }
@@ -46,7 +46,7 @@ public class RelatoController {
     @Operation(summary = "Cria um novo relato no sistema", description = "Endpoint recebe no corpo da requisição os dados necessários para criar um novo relato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados"),
-            @ApiResponse(responseCode = "201", description = "Relato criada com sucesso!")
+            @ApiResponse(responseCode = "201", description = "Relato criado com sucesso!")
     })
     public ResponseEntity<RelatoResponseDTO> create(@RequestBody @Valid RelatoDTO relatoRequest) {
         log.info("Cadastrando relato: {}", relatoRequest);
@@ -60,7 +60,7 @@ public class RelatoController {
     @Operation(summary = "Exibe os detalhes de um relato de id equivalente", description = "Endpoint retorna dados de um relato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "Relato não encontrada"),
-            @ApiResponse(responseCode = "200", description = "Relato detalhada com sucesso!")
+            @ApiResponse(responseCode = "200", description = "Relato detalhado com sucesso!")
     })
     public ResponseEntity<RelatoResponseDTO> get(@PathVariable Long id) {
         log.info("Buscar por id: {}", id);
@@ -74,10 +74,10 @@ public class RelatoController {
 
     @DeleteMapping("{id}")
     @CacheEvict(allEntries = true)
-    @Operation(summary = "Deleta uma relato do sistema", description = "Endpoint recebe no path o id da relato a ser deletada")
+    @Operation(summary = "Deleta um relato do sistema", description = "Endpoint recebe no path o id da relato a ser deletado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "Relato não encontrada"),
-            @ApiResponse(responseCode = "204", description = "Relato removida com sucesso!")
+            @ApiResponse(responseCode = "204", description = "Relato removido com sucesso!")
     })
     public ResponseEntity<Object> destroy(@PathVariable Long id) {
         log.info("Apagando relato por id: {}", id);
@@ -89,10 +89,10 @@ public class RelatoController {
     @PutMapping("{id}")
     @Transactional
     @CacheEvict(allEntries = true)
-    @Operation(summary = "Atualiza uma relato no sistema", description = "Endpoint recebe no corpo da requisição os dados necessários para atualizar uma relato")
+    @Operation(summary = "Atualiza um relato no sistema", description = "Endpoint recebe no corpo da requisição os dados necessários para atualizar um relato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados"),
-            @ApiResponse(responseCode = "200", description = "Relato atualizada com sucesso!")
+            @ApiResponse(responseCode = "200", description = "Relato atualizado com sucesso!")
     })
     public ResponseEntity<RelatoResponseDTO> update(@PathVariable Long id, @RequestBody RelatoUpdateDTO relatoRequest){
         log.info("Atualizando e-mail de empresa id {} para {}", id, relatoRequest);
@@ -102,10 +102,10 @@ public class RelatoController {
     @PatchMapping("like/{id}")
     @Transactional
     @CacheEvict(allEntries = true)
-    @Operation(summary = "Atualiza uma relato no sistema", description = "Endpoint recebe no corpo da requisição os dados necessários para atualizar uma relato")
+    @Operation(summary = "Atualiza um relato no sistema", description = "Endpoint recebe no corpo da requisição os dados necessários para atualizar um relato")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados"),
-            @ApiResponse(responseCode = "200", description = "Relato atualizada com sucesso!")
+            @ApiResponse(responseCode = "200", description = "Relato atualizado com sucesso!")
     })
     public ResponseEntity<RelatoResponseDTO> like(@PathVariable Long id){
         log.info("Inserindo like em relato de id: {}", id);

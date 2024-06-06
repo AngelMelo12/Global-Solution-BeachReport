@@ -35,7 +35,7 @@ public class UsuarioController {
 
     @GetMapping
     @Cacheable
-    @Operation(summary = "Lista todas as usuarios", description = "Endpoint retorna de forma paginada todos as usuarios, por padrão cada pagina contém 10 cadastros, porém estes dados são parametrizáveis.")
+    @Operation(summary = "Lista todas os usuarios", description = "Endpoint retorna de forma paginada todos os usuarios, por padrão cada pagina contém 10 usuários, porém estes dados são parametrizáveis.")
     public ResponseEntity<Page<UsuarioResponseDTO>> index(@ParameterObject @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(usuarioService.index(pageable));
     }
@@ -43,10 +43,10 @@ public class UsuarioController {
     @PostMapping
     @Transactional
     @CacheEvict(allEntries = true)
-    @Operation(summary = "Cria uma nova usuario no sistema", description = "Endpoint recebe no corpo da requisição os dados necessários para realizar uma nova usuario")
+    @Operation(summary = "Cria um novo usuario no sistema", description = "Endpoint recebe no corpo da requisição os dados necessários para realizar um novo usuario")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados"),
-            @ApiResponse(responseCode = "201", description = "Usuario criada com sucesso!")
+            @ApiResponse(responseCode = "201", description = "Usuario criado com sucesso!")
     })
     public ResponseEntity<UsuarioResponseDTO> create(@RequestBody @Valid UsuarioDTO usuarioRequest) {
         log.info("Cadastrando usuario: {}", usuarioRequest);
@@ -57,10 +57,10 @@ public class UsuarioController {
     }
 
     @GetMapping("{id}")
-    @Operation(summary = "Exibe os detalhes de uma usuario de id equivalente", description = "Endpoint retorna dados de uma usuario")
+    @Operation(summary = "Exibe os detalhes de um usuario de id equivalente", description = "Endpoint retorna dados de um usuario")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "Usuario não encontrada"),
-            @ApiResponse(responseCode = "200", description = "Usuario detalhada com sucesso!")
+            @ApiResponse(responseCode = "200", description = "Usuario detalhado com sucesso!")
     })
     public ResponseEntity<UsuarioResponseDTO> get(@PathVariable Long id) {
         log.info("Buscar por id: {}", id);
@@ -74,10 +74,10 @@ public class UsuarioController {
 
     @DeleteMapping("{id}")
     @CacheEvict(allEntries = true)
-    @Operation(summary = "Deleta uma usuario do sistema", description = "Endpoint recebe no path o id da usuario a ser deletada")
+    @Operation(summary = "Deleta um usuario do sistema", description = "Endpoint recebe no path o id do usuario a ser deletado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "Usuario não encontrada"),
-            @ApiResponse(responseCode = "204", description = "Usuario removida com sucesso!")
+            @ApiResponse(responseCode = "204", description = "Usuario removido com sucesso!")
     })
     public ResponseEntity<Object> destroy(@PathVariable Long id) {
         log.info("Apagando usuario por id: {}", id);
@@ -89,10 +89,10 @@ public class UsuarioController {
     @PutMapping("{id}")
     @Transactional
     @CacheEvict(allEntries = true)
-    @Operation(summary = "Atualiza uma usuario no sistema", description = "Endpoint recebe no corpo da requisição os dados necessários para atualizar uma usuario")
+    @Operation(summary = "Atualiza um usuario no sistema", description = "Endpoint recebe no corpo da requisição os dados necessários para atualizar um usuario")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados"),
-            @ApiResponse(responseCode = "200", description = "Usuario atualizada com sucesso!")
+            @ApiResponse(responseCode = "200", description = "Usuario atualizado com sucesso!")
     })
     public ResponseEntity<UsuarioResponseDTO> update(@PathVariable Long id, @RequestBody UsuarioUpdateDTO usuarioRequest){
         log.info("Atualizando e-mail de empresa id {} para {}", id, usuarioRequest);
