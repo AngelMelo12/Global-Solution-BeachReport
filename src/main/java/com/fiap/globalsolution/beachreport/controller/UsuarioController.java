@@ -1,7 +1,7 @@
 package com.fiap.globalsolution.beachreport.controller;
 
-import com.fiap.globalsolution.beachreport.model.Usuario;
 import com.fiap.globalsolution.beachreport.model.dto.UsuarioDTO;
+import com.fiap.globalsolution.beachreport.model.dto.UsuarioResponseDTO;
 import com.fiap.globalsolution.beachreport.model.dto.UsuarioUpdateDTO;
 import com.fiap.globalsolution.beachreport.service.UsuarioService;
 import com.fiap.globalsolution.beachreport.utils.URIBuilder;
@@ -36,7 +36,7 @@ public class UsuarioController {
     @GetMapping
     @Cacheable
     @Operation(summary = "Lista todas as usuarios", description = "Endpoint retorna de forma paginada todos as usuarios, por padrão cada pagina contém 10 cadastros, porém estes dados são parametrizáveis.")
-    public ResponseEntity<Page<Usuario>> index(@ParameterObject @PageableDefault Pageable pageable) {
+    public ResponseEntity<Page<UsuarioResponseDTO>> index(@ParameterObject @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(usuarioService.index(pageable));
     }
 
@@ -48,11 +48,11 @@ public class UsuarioController {
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados"),
             @ApiResponse(responseCode = "201", description = "Usuario criada com sucesso!")
     })
-    public ResponseEntity<Usuario> create(@RequestBody @Valid UsuarioDTO usuarioRequest) {
+    public ResponseEntity<UsuarioResponseDTO> create(@RequestBody @Valid UsuarioDTO usuarioRequest) {
         log.info("Cadastrando usuario: {}", usuarioRequest);
-        var emailEmpresa = usuarioService.create(usuarioRequest);
+        var usuario = usuarioService.create(usuarioRequest);
         return ResponseEntity
-                .created(URIBuilder.createFromId(emailEmpresa.getId()))
+                .created(URIBuilder.createFromId(usuario.id()))
                 .build();
     }
 
@@ -62,10 +62,11 @@ public class UsuarioController {
             @ApiResponse(responseCode = "404", description = "Usuario não encontrada"),
             @ApiResponse(responseCode = "200", description = "Usuario detalhada com sucesso!")
     })
-    public ResponseEntity<Usuario> get(@PathVariable Long id) {
+    public ResponseEntity<UsuarioResponseDTO> get(@PathVariable Long id) {
         log.info("Buscar por id: {}", id);
         return usuarioService
                 .get(id)
+                .map(UsuarioResponseDTO::fromUsuario)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -93,7 +94,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "400", description = "Erro de validação nos dados"),
             @ApiResponse(responseCode = "200", description = "Usuario atualizada com sucesso!")
     })
-    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody UsuarioUpdateDTO usuarioRequest){
+    public ResponseEntity<UsuarioResponseDTO> update(@PathVariable Long id, @RequestBody UsuarioUpdateDTO usuarioRequest){
         log.info("Atualizando e-mail de empresa id {} para {}", id, usuarioRequest);
         return ResponseEntity.ok(usuarioService.update(id, usuarioRequest));
     }

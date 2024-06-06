@@ -1,14 +1,20 @@
 package com.fiap.globalsolution.beachreport.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.sql.Blob;
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "T_TB_RELATO")
+@Table(name = "T_BR_RELATO")
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 public class Relato {
 
     @Id
@@ -16,17 +22,18 @@ public class Relato {
     @Column(name = "id_relato")
     private Long id;
 
+    @Lob
     @Column(name = "blob_foto")
-    private Blob foto;
+    private byte[] foto;
 
     @Column(name = "ds_relato")
     private String relato;
 
     @Column(name = "nr_latitude")
-    private Number latitude;
+    private BigDecimal latitude;
 
     @Column(name = "nr_longitude")
-    private Number longitude;
+    private BigDecimal longitude;
 
     @Column(name = "praia_suja")
     private String praiaSuja;
@@ -34,12 +41,17 @@ public class Relato {
     @Column(name = "envolve_animais")
     private String envolveAnimais;
 
-    @Column(name = "id_usuario")
-    private Long idUsuario;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "T_TB_USUARIO_id_usuario")
+    private Usuario usuario;
 
     @Column(name = "dt_hr_relato")
-    private Date dataHoraRelato;
+    private LocalDateTime dataHoraRelato;
 
     @Column(name = "nr_likes")
-    private Number nrLikes;
+    private Long nrLikes;
+
+    public void like() {
+        this.nrLikes += 1;
+    }
 }
