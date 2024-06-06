@@ -58,7 +58,11 @@ public class RelatoService {
 
     public RelatoResponseDTO likeRelato(Long id) {
         var relatoToLike = verificarSeExisteRelato(id);
+        var usuario = relatoToLike.getUsuario();
         relatoToLike.like();
+        usuario.aumentaConfiabilidade();
+
+        usuarioRepository.save(usuario);
         return RelatoResponseDTO.fromRelato(relatoRepository.save(relatoToLike));
     }
 

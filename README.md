@@ -16,383 +16,183 @@ Clone este repositório na sua pasta de preferência. Utilizando um terminal, di
 
     mvn spring-boot:run
 
-Caso esteja usando uma IDE, abra o projeto na seu editor de preferência, localize a classe **TargetcustomerApplication** e execute o projeto através do método main localizado nesta classe.
+Caso esteja usando uma IDE, abra o projeto na seu editor de preferência, localize a classe **BeachReportApplication** e execute o projeto através do método main localizado nesta classe.
 
 Utilize o arquivo *endpoints-postman.json* localizado na pasta raíz do projeto para realizar testes locais das chamadas de API persistência de informações no banco de dados.
 
 ## Endpoints
 
-### Cadastro
+### Usuário
 
-GET /cadastro
+GET /usuario
 
-Lista todas as cadastros cadastradas no sistema.
-
-*Códigos de status*
-200 sucesso
-
----
-GET /cadastro/{id}
-
-Retorna os detalhes de um cadastro com o 'id' informado.
+Lista todos os usuários cadastrados no sistema.
 
 *Códigos de status*
-200 sucesso
-404 id não encontrado
+- 200 sucesso
 
 ---
-POST /cadastro
+GET /usuario/{id}
 
-Cadastrar uma nova empresa.
+Retorna os detalhes de um usuário com o 'id' informado.
 
-| campo       | tipo   | obrigatório | descrição 
-|-------------|--------|-----------|-----------
-| cnpj        | long   | sim       | um cnpj para identificar a cadastro 
-| senha       | string | sim       | senha escolhida pelo usuário 
-| razaoSocial | string | sim       | razão social do usuário 
+*Códigos de status*
+- 200 sucesso
+- 404 id não encontrado
+
+---
+POST /usuario
+
+Cadastrar um novo usuário.
+
+| campo    | tipo   | obrigatório | descrição 
+|----------|--------|------------|-----------
+| cpf      | long   | sim        | um cpf para identificar a cadastro 
+| senha    | string | sim        | senha escolhida pelo usuário 
+| email    | string | sim        | e-mail de usuário
+| cep      | long   | sim        | CEP de usuário
+| ddd      | long   | sim        | DDD de usuário
+| telefone | long   | sim        | telefone de usuário
 
 ```json
 {
-  "cnpj":12345,
+  "cpf":12345,
   "senha":"12345",
-  "razaoSocial":"12345"
-}
-```
-
-*Códigos de status*
-201 criado com sucesso
-400 validação falhou
-
----
-DELETE /cadastro/{id}
-
-Apaga o cadastro com o 'id' informado.
-
-*Códigos de status*
-204 apagado com sucesso
-404 id não encontrado
-
----
-PUT /cadastro/{id}
-
-Altera o cadastro com o 'id' informado.
-
-| campo | tipo | obrigatório | descrição 
-|-------|------|-------------|-----------
-| cnpj        | long   | sim       | um cnpj para identificar a cadastro 
-| senha       | string | sim       | senha escolhida pelo usuário 
-| razaoSocial | string | sim       | razão social do usuário design
-
-*Códigos de status*
-200 sucesso
-404 id não encontrado
-400 validação falhou
-
-*Scheme
-
-```json
-{
-  "cnpj":12345,
-  "senha":"12345",
-  "razaoSocial":"12345"
-}
-```
-
-### E-mail
-
-GET /email
-
-Lista todos os e-mails cadastrados no sistema.
-
-*Códigos de status*
-200 sucesso
-
----
-GET /email/{id}
-
-Retorna os detalhes de um e-mail com o 'id' informado.
-
-*Códigos de status*
-200 sucesso
-404 id não encontrado
-
----
-POST /email
-
-Cadastrar um novo e-mail.
-
-| campo      | tipo   | obrigatório | descrição 
-|------------|--------|-----------|-----------
-| idCadastro | long   | sim       | id do cadastro 
-| email      | string | sim       | e-mail para ser cadastrado 
-
-```json
-{
-  "idCadastro":1,
-  "email":"meuemail@email.com"
-}
-```
-
-*Códigos de status*
-201 criado com sucesso
-400 validação falhou
-
----
-DELETE /email/{id}
-
-Apaga o e-mail com o 'id' informado.
-
-*Códigos de status*
-204 apagado com sucesso
-404 id não encontrado
-
----
-PUT /email/{id}
-
-Altera a e-mail com o 'id' informado.
-
-| campo | tipo | obrigatório | descrição 
-|-------|------|-------------|-----------
-| email      | string | sim       | e-mail para ser atualizado 
-
-*Códigos de status*
-200 sucesso
-404 id não encontrado
-400 validação falhou
-
-*Scheme
-
-```json
-{
-  "email":"meunovoemail@email.com"
-}
-```
-
-### Endereço
-
-GET /endereco
-
-Lista todos os endereços cadastrados no sistema.
-
-*Códigos de status*
-200 sucesso
-
----
-GET /endereco/{id}
-
-Retorna os detalhes de um endereço com o 'id' informado.
-
-*Códigos de status*
-200 sucesso
-404 id não encontrado
-
----
-POST /endereco
-
-Cadastrar um novo endereço.
-
-| campo      | tipo   | obrigatório | descrição 
-|------------|--------|-----------|-----------
-| idCadastro | long   | sim       | id do cadastro 
-| logradouro | long   | sim       | número de lougradouro 
-| cep        | long   | sim       | número de cep
-| descricaoPontoDeReferencia | string | sim       | descrição do ponto de referência do endereço
-
-```json
-{
-  "idCadastro":1,
-  "logradouro":123,
-  "cep":123,
-  "descricaoPontoDeReferencia":"Descricao"
-}
-```
-
-*Códigos de status*
-201 criado com sucesso
-400 validação falhou
-
----
-DELETE /endereco/{id}
-
-Apaga o endereço com o 'id' informado.
-
-*Códigos de status*
-204 apagado com sucesso
-404 id não encontrado
-
----
-PUT /endereco/{id}
-
-Altera o endereço com o 'id' informado.
-
-| campo | tipo | obrigatório | descrição 
-|-------|------|-------------|-----------
-| logradouro | long   | sim       | número de lougradouro 
-| cep        | long   | sim       | número de cep
-| descricaoPontoDeReferencia | string | sim       | descrição do ponto de referência do endereço
-
-*Códigos de status*
-200 sucesso
-404 id não encontrado
-400 validação falhou
-
-*Scheme
-
-```json
-{
-  "logradouro":123,
-  "cep":123,
-  "descricaoPontoDeReferencia":"Descricao"
-}
-```
-
-### Telefone
-
-GET /telefone
-
-Lista todos os telefones cadastrados no sistema.
-
-*Códigos de status*
-200 sucesso
-
----
-GET /telefone/{id}
-
-Retorna os detalhes de um telefone com o 'id' informado.
-
-*Códigos de status*
-200 sucesso
-404 id não encontrado
-
----
-POST /telefone
-
-Cadastrar um novo endereço.
-
-| campo        | tipo   | obrigatório | descrição 
-|--------------|--------|-----------|-----------
-| idCadastro   | long   | sim       | id do cadastro 
-| ddi          | long   | sim       | ddi do número de telefone 
-| ddd          | long   | sim       | ddd do número de telefone
-| telefone     | long   | sim       | número de telefone completo
-| tipoTelefone | string | sim       | origem do telefone (Celular, Fixo, etc.)
-
-```json
-{
-  "idCadastro":1,
-  "ddi":55,
+  "email":"email@email.com",
+  "cep":12345,
   "ddd":11,
-  "telefone":123456789,
-  "tipoTelefone":"CELULAR"
+  "telefone":12345
 }
 ```
 
 *Códigos de status*
-201 criado com sucesso
-400 validação falhou
+- 201 criado com sucesso
+- 400 validação falhou
 
 ---
-DELETE /telefone/{id}
+DELETE /usuario/{id}
 
-Apaga o telefone com o 'id' informado.
+Apaga o usuário com o 'id' informado.
 
 *Códigos de status*
-204 apagado com sucesso
-404 id não encontrado
+- 204 apagado com sucesso
+- 404 id não encontrado
 
 ---
-PUT /telefone/{id}
+PUT /usuario/{id}
 
-Altera o telefone com o 'id' informado.
+Altera o usuário com o 'id' informado.
 
 | campo | tipo | obrigatório | descrição 
 |-------|------|-------------|-----------
-| ddi          | long   | sim       | ddi do número de telefone 
-| ddd          | long   | sim       | ddd do número de telefone
-| telefone     | long   | sim       | número de telefone completo
-| tipoTelefone | string | sim       | origem do telefone (Celular, Fixo, etc.)
+| senha    | string | sim        | senha escolhida pelo usuário 
+| email    | string | sim        | e-mail de usuário
+| cep      | long   | sim        | CEP de usuário
+| ddd      | long   | sim        | DDD de usuário
+| telefone | long   | sim        | telefone de usuário
 
 *Códigos de status*
-200 sucesso
-404 id não encontrado
-400 validação falhou
-
+- 200 sucesso
+- 404 id não encontrado
+- 400 validação falhou
 ```json
 {
-  "ddi":55,
-  "ddd":11,
-  "telefone":123456789,
-  "tipoTelefone":"CELULAR"
+  "senha":"NovaSenha",
+  "email":"novo-email@email.com",
+  "cep":54321,
+  "ddd":54321,
+  "telefone":54321
 }
 ```
 
-### Consulta
+### Relato
 
-GET /consulta
+GET /relato
 
-Lista todos as consultas cadastrados no sistema.
-
-*Códigos de status*
-200 sucesso
-
----
-GET /consulta/{id}
-
-Retorna os detalhes de uma consulta com o 'id' informado.
+Lista todas os relatos cadastrados no sistema.
 
 *Códigos de status*
-200 sucesso
-404 id não encontrado
+- 200 sucesso
 
 ---
-POST /consulta
+GET /relato/{id}
 
-Cadastrar uma nova consulta.
+Retorna os detalhes de um relato com o 'id' informado.
 
-| campo        | tipo   | obrigatório | descrição 
-|--------------|--------|-----------|-----------
-| idCadastro   | long   | sim       | id do cadastro 
-| descricaoConsulta          | String | sim       | breve descrição da consulta 
+*Códigos de status*
+- 200 sucesso
+- 404 id não encontrado
+
+---
+POST /relato
+
+Cadastrar um novo relato.
+
+| campo           | tipo   | obrigatório | descrição 
+|-----------------|--------|------------|-----------
+| relato          | String | sim        | descrição de um relato 
+| latitude        | double | sim        | número representativo de latitude 
+| longitude       | double | sim        | número representativo de longitude
+| praia_suja      | char   | sim        | "S" ou "N" para praia suja
+| envolve_animais | char   | sim        | "S" ou "N" para praia suja
+| id_usuario      | long   | sim        | id do usuário que realizou o relato
 
 ```json
 {
-  "idCadastro":1,
-  "descricaoConsulta":"Consulta do produto X"
+  "relato":"Meu relato é esse",
+  "latitude":1.0,
+  "longitude":1.0,
+  "praia_suja":"S",
+  "envolve_animais":"N",
+  "id_usuario":1
 }
 ```
 
 *Códigos de status*
-201 criado com sucesso
-400 validação falhou
+- 201 criado com sucesso
+- 400 validação falhou
 
 ---
-DELETE /consulta/{id}
+DELETE /relato/{id}
 
-Apaga o consulta com o 'id' informado.
+Apaga o relato com o 'id' informado.
 
 *Códigos de status*
-204 apagado com sucesso
-404 id não encontrado
-
+- 204 apagado com sucesso
+- 404 id não encontrado
 ---
-PUT /consulta/{id}
+PUT /relato/{id}
 
-Altera o consulta com o 'id' informado.
+Altera o relato com o 'id' informado.
 
-| campo        | tipo   | obrigatório | descrição 
-|--------------|--------|-----------|-----------
-| descricaoConsulta          | String | sim       | breve descrição da consulta 
+| campo | tipo | obrigatório | descrição 
+|-------|------|-------------|-----------
+| relato          | String | sim        | descrição de um relato 
+| latitude        | double | sim        | número representativo de latitude 
+| longitude       | double | sim        | número representativo de longitude
+
+*Códigos de status*
+- 200 sucesso
+- 404 id não encontrado
+- 400 validação falhou
 
 ```json
 {
-  "descricaoConsulta":"Consulta do produto X"
+  "relato":"Meu Novo Relato atualizado",
+  "latitude":2.0,
+  "longitude":2.0
 }
 ```
-*Códigos de status*
-200 sucesso
-404 id não encontrado
-400 validação falhou
+---
+PATCH /relato/like/{id}
 
+Da um like para o post referenciado.
+
+*Códigos de status*
+- 200 like dado com sucesso
+- 404 id não encontrado
+- 500 erro ao dar like
+---
 
 ## Link do vídeo de apresentação na nossa Proposta tecnológica: 
 https://youtu.be/TIfaJ7jkS3M?feature=shared

@@ -28,7 +28,10 @@ public record RelatoResponseDTO(
         String envolveAnimais,
 
         @JsonProperty("data_hora_relato")
-        LocalDateTime dataHoraRelato
+        LocalDateTime dataHoraRelato,
+
+        @JsonProperty("numero_likes")
+        Long likes
 ) {
 
     public static RelatoResponseDTO fromRelato(Relato relato) {
@@ -42,6 +45,7 @@ public record RelatoResponseDTO(
                 .praiaSuja(relato.getPraiaSuja())
                 .envolveAnimais(relato.getEnvolveAnimais())
                 .dataHoraRelato(relato.getDataHoraRelato())
+                .likes(relato.getNrLikes())
                 .build();
     }
 

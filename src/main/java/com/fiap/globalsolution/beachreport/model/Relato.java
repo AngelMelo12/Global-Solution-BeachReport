@@ -35,10 +35,10 @@ public class Relato {
     @Column(name = "nr_longitude")
     private BigDecimal longitude;
 
-    @Column(name = "praia_suja")
+    @Column(name = "praia_suja", columnDefinition="char(1)")
     private String praiaSuja;
 
-    @Column(name = "envolve_animais")
+    @Column(name = "envolve_animais", columnDefinition="char(1)")
     private String envolveAnimais;
 
     @ManyToOne(fetch = FetchType.LAZY)

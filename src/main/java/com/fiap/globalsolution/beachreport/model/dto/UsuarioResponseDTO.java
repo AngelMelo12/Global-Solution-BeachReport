@@ -1,5 +1,6 @@
 package com.fiap.globalsolution.beachreport.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fiap.globalsolution.beachreport.model.*;
 import lombok.Builder;
 
@@ -20,6 +21,9 @@ public record UsuarioResponseDTO(
 
         Long telefone,
 
+        @JsonProperty("nivel_confiabilidade")
+        Long nivelConfiabilidade,
+
         List<RelatoResponseDTO> relatos
 ) {
 
@@ -29,6 +33,7 @@ public record UsuarioResponseDTO(
 
         var telefone = usuario.getTelefone();
         var relatos = usuario.getRelatos();
+        var confiabilidade = usuario.getNivelConfiabilidade();
 
         List<RelatoResponseDTO> relatosResponse = new ArrayList<>();
 
@@ -45,6 +50,7 @@ public record UsuarioResponseDTO(
                 .cep(usuario.getEndereco().getCep())
                 .ddd(telefone.getDdd())
                 .telefone(telefone.getTelefone())
+                .nivelConfiabilidade(confiabilidade.getNivelConfiabilidade())
                 .relatos(relatosResponse)
                 .build();
     }

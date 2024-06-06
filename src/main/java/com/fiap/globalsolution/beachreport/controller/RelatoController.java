@@ -99,7 +99,7 @@ public class RelatoController {
         return ResponseEntity.ok(relatoService.update(id, relatoRequest));
     }
 
-    @PatchMapping("{id}")
+    @PatchMapping("like/{id}")
     @Transactional
     @CacheEvict(allEntries = true)
     @Operation(summary = "Atualiza uma relato no sistema", description = "Endpoint recebe no corpo da requisição os dados necessários para atualizar uma relato")

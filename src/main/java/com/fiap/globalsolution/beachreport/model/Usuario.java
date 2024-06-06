@@ -38,4 +38,10 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Relato> relatos;
+
+    public void aumentaConfiabilidade() {
+        var nivelConfiabilidade = this.getNivelConfiabilidade();
+        var totalConfiabilidade = nivelConfiabilidade.getNivelConfiabilidade();
+        nivelConfiabilidade.setNivelConfiabilidade(totalConfiabilidade + 1);
+    }
 }
