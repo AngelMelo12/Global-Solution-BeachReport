@@ -195,7 +195,7 @@ Da um like para o post referenciado.
 ---
 
 ## Link do vídeo de apresentação na nossa Proposta tecnológica: 
-https://youtu.be/TIfaJ7jkS3M?feature=shared
+[https://youtu.be/TIfaJ7jkS3M?feature=shared](https://www.youtube.com/watch?v=93IFdxIMHD4)
 
 
 
