@@ -10,6 +10,6 @@ public class SwaggerConfig {
 
     @Bean
     public OpenAPI config(){
-        return new OpenAPI().info(new Info().title("Api Target Customer"));
+        return new OpenAPI().info(new Info().title("Api Beach Report"));
     }
 }
